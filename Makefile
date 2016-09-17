@@ -18,18 +18,22 @@ CP = cp -fr
 MKDIR = mkdir -p
 
 # macro for flags
-C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I libs
+C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I $(KINCLUDE)
 LD_FLAGS = -T $(TOOLS_DIR)/kernel.ld -m elf_i386 -nostdlib
 ASM_FLAGS = -f elf -g -F stabs
 
-# names
+# names macro
 KERNEL_NAME=dinux
 
-# path
+# path macro
 BIN_DIR = ./bin
 OBJ_DIR = ./obj
 MOUNT_DIR = /mnt/dinux
 TOOLS_DIR = ./tools
+
+# include macro
+KINCLUDE += libs/ 			\
+			kern/driver 	\
 
 all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 

@@ -5,7 +5,7 @@
  * Distributed under terms of the MIT license.
  */
 
-#include <type.h>
+#include <defs.h>
 
 #define BUFFER_SCREEN_WIDTH 80
 

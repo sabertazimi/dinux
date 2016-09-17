@@ -5,11 +5,11 @@
  * Distributed under terms of the MIT license.
  */
 
-#ifndef INCLUDE_TYPE_H
-#define INCLUDE_TYPE_H
+#ifndef LIBS_TYPE_H
+#define LIBS_TYPE_H
 
 #ifndef NULL
-    #define NULL 0
+    #define NULL ((void *)0)
 #endif
 
 #ifndef TRUE
@@ -20,12 +20,16 @@
     #define FALSE 0
 #endif
 
+#define __packed   __attribute__((packed))
+#define __noinline __attribute__((noinline))
+#define __noreturn __attribute__((noreturn))
+
 typedef unsigned int   uint32_t;
 typedef          int   int32_t;
 typedef unsigned short uint16_t;
 typedef          short int16_t;
 typedef unsigned char  uint8_t;
 typedef          char  int8_t;
-typedef          char  bool;
+typedef          int   bool;
 
-#endif /* !INCLUDE_TYPE_H */
+#endif /* !LIBS_TYPE_H */
