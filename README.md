@@ -26,6 +26,13 @@ $ sudo cp -fr grub-0.97-i386-pc/boot/grub/stage1 grub-0.97-i386-pc/boot/grub/sta
 $ sudo vim /mnt/dinux/boot/grub/grub.conf
 ```
 
+## Bootloader/Grub
+
+利用现成的 bootloader - grub 可以不用编写 **A20开启** 与 **内核装载** 的代码, grub 将 kernel 加载进内核后, 整个计算机处于:
+
+*   A20 开启
+*   段/页机制关闭
+
 ## License
 
 MIT License Copyright (c) 2016 [sabertazimi](https://github.com/sabertazimi)

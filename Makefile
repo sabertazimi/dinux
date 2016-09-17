@@ -18,7 +18,7 @@ CP = cp -fr
 MKDIR = mkdir -p
 
 # macro for flags
-C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I include
+C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I libs
 LD_FLAGS = -T $(TOOLS_DIR)/kernel.ld -m elf_i386 -nostdlib
 ASM_FLAGS = -f elf -g -F stabs
 
