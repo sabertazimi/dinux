@@ -14,6 +14,7 @@ LD = ld
 ASM = nasm
 RM = rm -fr
 MV = mv
+CP = cp -fr
 MKDIR = mkdir -p
 
 # macro for flags
@@ -56,12 +57,13 @@ create_image:
 .PHONY:update_image
 update_image:
 	make mount_image
-	sudo cp $(BIN_DIR)/$(KERNEL_NAME) $(MOUNT_DIR)/$(KERNEL_NAME)
+	sudo $(CP) $(BIN_DIR)/$(KERNEL_NAME) $(MOUNT_DIR)/$(KERNEL_NAME)
 	sleep 1
 	make umount_image
 
 .PHONY:mount_image
 mount_image:
+	sudo $(MKDIR) $(MOUNT_DIR)
 	sudo mount $(BIN_DIR)/floppy.img $(MOUNT_DIR)
 
 .PHONY:umount_image
