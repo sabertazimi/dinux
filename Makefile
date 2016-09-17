@@ -5,8 +5,10 @@
 
 C_SOURCES = $(shell find . -name "*.c")
 C_OBJECTS = $(patsubst %.c, %.o, $(C_SOURCES))
+C_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(C_OBJECTS)))
 S_SOURCES = $(shell find . -name "*.S")
 S_OBJECTS = $(patsubst %.S, %.o, $(S_SOURCES))
+S_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(S_OBJECTS)))
 
 # macro for tools
 CC = gcc
@@ -18,7 +20,7 @@ CP = cp -fr
 MKDIR = mkdir -p
 
 # macro for flags
-C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I $(KINCLUDE)
+C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector $(addprefix -I, $(KINCLUDE))
 LD_FLAGS = -T $(TOOLS_DIR)/kernel.ld -m elf_i386 -nostdlib
 ASM_FLAGS = -f elf -g -F stabs
 
@@ -33,7 +35,7 @@ TOOLS_DIR = ./tools
 
 # include macro
 KINCLUDE += libs/ 			\
-			kern/driver 	\
+			kern/drivers 	\
 
 all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 
@@ -52,7 +54,7 @@ all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 link:
 	@echo Linking kernel image
 	$(MKDIR) $(BIN_DIR)
-	$(LD) $(LD_FLAGS) $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(KERNEL_NAME)
+	$(LD) $(LD_FLAGS) $(S_OBJ) $(C_OBJ) -o $(BIN_DIR)/$(KERNEL_NAME)
 
 .PHONY:clean
 clean:
@@ -105,8 +107,10 @@ debug:
 show:
 	@echo 'C_SOURCES = $(C_SOURCES)'
 	@echo 'C_OBJECTS = $(C_OBJECTS)'
+	@echo 'C_OBJ     = $(C_OBJ)'
 	@echo 'S_SOURCES = $(S_SOURCES)'
 	@echo 'S_OBJECTS = $(S_OBJECTS)'
+	@echo 'S_OBJ     = $(S_OBJ)'
 
 # vim:ft=make
 #
