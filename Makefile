@@ -59,6 +59,7 @@ link:
 .PHONY:clean
 clean:
 	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/$(KERNEL_NAME)
+	$(RM) .gdb_history
 
 .PHONY:create_image
 create_image:
@@ -99,9 +100,9 @@ bochs:
 
 .PHONY:debug
 debug:
-	qemu -S -s -fda $(BIN_DIR)/floppy.img -boot -a &
+	qemu -fda $(BIN_DIR)/floppy.img -boot a -gdb tcp::1234 -S &
 	sleep 1
-	cgdb -x $(TOOLS_DIR)/gdbinit
+	gdb -q -x $(TOOLS_DIR)/gdbinit
 
 .PHONY:show
 show:
