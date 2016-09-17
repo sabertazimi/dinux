@@ -9,8 +9,21 @@ A toy operating system
 ## Installation
 
 ```sh
-$ sudo apt install cgdb qemu bochs
+$ sudo apt install build-essential nasm
+$ sudo apt install cgdb
+$ sudo apt install qemu bochs
 $ sudo ln -s /usr/bin/qemu-system-i386 /usr/bin/qemu
+```
+
+```sh
+$ wget http://alpha.gnu.org/gnu/grub/grub-0.97-i386-pc.tar.gz
+$ tar xzvf grub-0.97-i386-pc.tar.gz
+$ dd if=/dev/zero of=floppy.img bs=512 count=2880
+$ mkfs.vfat floppy.img
+$ sudo mount floppy.img /mnt/dinux
+$ sudo mkdir -p /mnt/dinux/boot/grub
+$ sudo cp -fr grub-0.97-i386-pc/boot/grub/stage1 grub-0.97-i386-pc/boot/grub/stage2 /mnt/dinux/boot/grub
+$ sudo vim /mnt/dinux/boot/grub/grub.conf
 ```
 
 ## License

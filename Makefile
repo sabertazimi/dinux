@@ -6,7 +6,7 @@
 C_SOURCES = $(shell find . -name "*.c")
 C_OBJECTS = $(patsubst %.c, %.o, $(C_SOURCES))
 S_SOURCES = $(shell find . -name "*.S")
-S_OBJECTS = $(patsubst %.s, %.o, $(S_SOURCES))
+S_OBJECTS = $(patsubst %.S, %.o, $(S_SOURCES))
 
 # macro for tools
 CC = gcc
@@ -19,34 +19,40 @@ MKDIR = mkdir -p
 
 # macro for flags
 C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I include
-LD_FLAGS = -T $(TOOLS_DIR)/kernel.ld -m elf_i3866 -nostdlib
+LD_FLAGS = -T $(TOOLS_DIR)/kernel.ld -m elf_i386 -nostdlib
 ASM_FLAGS = -f elf -g -F stabs
 
 # names
 KERNEL_NAME=dinux
 
 # path
-BIN_DIR = bin
+BIN_DIR = ./bin
+OBJ_DIR = ./obj
 MOUNT_DIR = /mnt/dinux
-TOOLS_DIR = tools
+TOOLS_DIR = ./tools
 
 all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 
 .c.o:
 	@echo Compiling C Source Files $< ...
+	$(MKDIR) $(OBJ_DIR)
 	$(CC) $(C_FLAGS) $< -o $@
+	$(MV) $@ $(OBJ_DIR)/$(notdir $@)
 
-.s.o:
+.S.o:
 	@echo Compiling Asm Source Files $< ...
-	$(ASM) $(ASM_FLAGS) $<
+	$(MKDIR) $(OBJ_DIR)
+	$(ASM) $(ASM_FLAGS) $< -o $@
+	$(MV) $@ $(OBJ_DIR)/$(notdir $@)
 
 link:
 	@echo Linking kernel image
-	$(LD) $(LD_FLAGS) $(S_OBJECTS) $(C_OBJECTS) -o $(BIN_DIR)/$(KERNEL_NAME)
+	$(MKDIR) $(BIN_DIR)
+	$(LD) $(LD_FLAGS) $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(KERNEL_NAME)
 
 .PHONY:clean
 clean:
-	$(RM) $(S_OBJECTS) $(C_OBJECTS) $(BIN_DIR)/$(KERNEL_NAME)
+	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/$(KERNEL_NAME)
 
 .PHONY:create_image
 create_image:
@@ -54,7 +60,13 @@ create_image:
 	mkfs.vfat floppy.img
 	mv floppy.img $(BIN_DIR)
 
+.PHONY:install_grub
+install_grub:
+	make mount
+	$(CP) /boot/grub/state1 $(MOUNT_DIR)
+
 .PHONY:update_image
+.IGNORE:update_image
 update_image:
 	make mount_image
 	sudo $(CP) $(BIN_DIR)/$(KERNEL_NAME) $(MOUNT_DIR)/$(KERNEL_NAME)
@@ -62,6 +74,7 @@ update_image:
 	make umount_image
 
 .PHONY:mount_image
+.IGNORE:mount_image
 mount_image:
 	sudo $(MKDIR) $(MOUNT_DIR)
 	sudo mount $(BIN_DIR)/floppy.img $(MOUNT_DIR)
@@ -83,6 +96,13 @@ debug:
 	qemu -S -s -fda $(BIN_DIR)/floppy.img -boot -a &
 	sleep 1
 	cgdb -x $(TOOLS_DIR)/gdbinit
+
+.PHONY:show
+show:
+	@echo 'C_SOURCES = $(C_SOURCES)'
+	@echo 'C_OBJECTS = $(C_OBJECTS)'
+	@echo 'S_SOURCES = $(S_SOURCES)'
+	@echo 'S_OBJECTS = $(S_OBJECTS)'
 
 # vim:ft=make
 #
