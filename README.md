@@ -33,6 +33,12 @@ $ sudo vim /mnt/dinux/boot/grub/grub.conf
 *   A20 开启
 *   段/页机制关闭
 
+## CGA/VGA Text Memory
+
+通过向物理地址(最低 1MB) 0x8b000 写数据, 可实现简单的打印字符功能. 从 0x8b000 开始将其视为一个 元素为 2 字节数据, 大小为 25*80 的二维数组. 数组元素所包含信息如下所示:
+
+*   (hi -> lo) 4 - 4 - 8: background_color - foreground_color - character_ascii
+
 ## License
 
 MIT License Copyright (c) 2016 [sabertazimi](https://github.com/sabertazimi)
