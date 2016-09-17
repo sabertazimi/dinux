@@ -95,3 +95,55 @@ void console_write_color(char *str, real_color_t back, real_color_t fore) {
     }
 }
 
+void console_write_hex(uint32_t n, real_color_t back, real_color_t fore) {
+    uint32_t bits;
+    uint8_t no_zeros_flag = 1;
+
+    console_write_color("0x", back, fore);
+
+    for (int i = 28; i >= 0; i -=4) {
+        // print from highest 4 bits to lowest 4 bits
+        // print highest 4 bits first
+        bits = (n >> i) & 0xf;
+
+        if (bits == 0 && no_zeros_flag != 0) {
+            continue;
+        }
+
+        no_zeros_flag = 0;
+
+        if (bits >= 0xa) {
+            console_putc_color(bits - 0xa + 'a', back, fore);
+        } else {
+            console_putc_color(bits + '0', back, fore);
+        }
+    }
+}
+
+void console_write_dec(uint32_t n, real_color_t back, real_color_t fore) {
+
+    if (n == 0) {
+        console_putc_color('0', back, fore);
+        return;
+    }
+
+    char raw[32];
+    uint32_t acc = n;
+
+    int i = 0;
+    while (acc > 0) {
+        raw[i++] = acc % 10 + '0';
+        acc /= 10;
+    }
+    raw[i] = '\0';
+
+    char dst[32];
+    dst[i--] = '\0';
+
+    int j = 0;
+    while (i >= 0) {
+        dst[i--] = raw[j++];
+    }
+
+    console_write_color(dst, back, fore);
+}
