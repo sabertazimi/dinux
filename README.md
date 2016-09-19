@@ -2,11 +2,13 @@
 
 A toy operating system
 
+```sh
      _ _                  
   __| (_)_ __  _   ___  __
  / _` | | '_ \| | | \ \/ /
 | (_| | | | | | |_| |>  < 
  \__,_|_|_| |_|\__,_/_/\_\
+```
 
 [![Author](https://img.shields.io/badge/author-sabertazimi-lightgrey.svg)](https://github.com/sabertazimi)
 [![Stable](https://img.shields.io/badge/stability-stable-brightgreen.svg)](https://github.com/sabertazimi/dinux)
