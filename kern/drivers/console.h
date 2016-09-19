@@ -5,8 +5,8 @@
  * Distributed under terms of the MIT license.
  */
 
-#ifndef CONSOLE_H
-#define CONSOLE_H
+#ifndef KERN_DRIVERS_CONSOLE_H
+#define KERN_DRIVERS_CONSOLE_H
 
 #include <defs.h>
 
@@ -42,4 +42,4 @@ void console_write_color(char *str, real_color_t back, real_color_t fore);
 void console_write_hex(uint32_t n, real_color_t back, real_color_t fore);
 void console_write_dec(uint32_t n, real_color_t back, real_color_t fore);
 
-#endif /* !CONSOLE_H */
+#endif /* !KERN_DRIVERS_CONSOLE_H */
