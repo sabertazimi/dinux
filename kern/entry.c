@@ -10,6 +10,10 @@
 
 #define KERN_DEBUG
 
+#ifdef KERN_DEBUG
+    #include "../test/spec.h"
+#endif
+
 /* #ifdef KERN_DEBUG */
 /*     #define VGA_INPUT(handle, character, color)      \ */
 /*         do {                                         \ */
@@ -19,7 +23,14 @@
 /* #endif */
 
 int kern_entry(void) {
+
     console_clear();
+
+#ifdef KERN_DEBUG
+    mem_spec();
+    string_spec();
+#endif
+
     console_write_color("Hello, Dinux! @time: ", RC_BLACK, RC_GREEN);
     console_write_dec(2016, RC_BLACK, RC_GREEN);
     console_write_color(".", RC_BLACK, RC_GREEN);

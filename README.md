@@ -17,10 +17,8 @@ A toy operating system
 ## Installation
 
 ```sh
-$ sudo apt install build-essential nasm
-$ sudo apt install cgdb
-$ sudo apt install qemu bochs
-$ sudo ln -s /usr/bin/qemu-system-i386 /usr/bin/qemu
+$ sudo apt install libc6-dev-i386 build-essential 
+$ sudo apt install nasm qemu bochs
 ```
 
 ```sh

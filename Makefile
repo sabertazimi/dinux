@@ -3,12 +3,15 @@
 # sabertazimi, 2016-09-17 14:16
 #
 
-C_SOURCES = $(shell find . -name "*.c")
+C_SOURCES = $(shell find . -path ./test -prune -o -name "*.c" -print)
 C_OBJECTS = $(patsubst %.c, %.o, $(C_SOURCES))
 C_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(C_OBJECTS)))
-S_SOURCES = $(shell find . -name "*.S")
+S_SOURCES = $(shell find . -path ./test -prune -o -name "*.S" -print)
 S_OBJECTS = $(patsubst %.S, %.o, $(S_SOURCES))
 S_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(S_OBJECTS)))
+T_SOURCES = $(shell find ./test -name "*.c" -print)
+T_OBJECTS = $(patsubst %.c, %.o, $(T_SOURCES))
+T_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(T_OBJECTS)))
 
 # macro for tools
 CC = gcc
@@ -38,7 +41,7 @@ TOOLS_DIR = ./tools
 KINCLUDE += libs/ 			\
 			kern/drivers 	\
 
-all: $(S_OBJECTS) $(C_OBJECTS) link update_image
+all: $(S_OBJECTS) $(C_OBJECTS) $(T_OBJECTS) link update_image
 
 .c.o:
 	@echo Compiling C Source Files $< ...
@@ -55,12 +58,15 @@ all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 link:
 	@echo Linking kernel image
 	$(MKDIR) $(BIN_DIR)
-	$(LD) $(LD_FLAGS) $(S_OBJ) $(C_OBJ) -o $(BIN_DIR)/$(KERNEL_NAME)
+	$(LD) $(LD_FLAGS) $(S_OBJ) $(C_OBJ) $(T_OBJ) -o $(BIN_DIR)/$(KERNEL_NAME)
 
 .PHONY:clean
 clean:
 	$(RM) $(OBJ_DIR)/* $(BIN_DIR)/$(KERNEL_NAME)
 	$(RM) .gdb_history
+
+.PHONY:test
+test:
 
 .PHONY:create_image
 create_image:
@@ -113,6 +119,9 @@ show:
 	@echo 'S_SOURCES = $(S_SOURCES)'
 	@echo 'S_OBJECTS = $(S_OBJECTS)'
 	@echo 'S_OBJ     = $(S_OBJ)'
+	@echo 'T_SOURCES = $(T_SOURCES)'
+	@echo 'T_OBJECTS = $(T_OBJECTS)'
+	@echo 'T_OBJ     = $(T_OBJ)'
 
 # vim:ft=make
 #
