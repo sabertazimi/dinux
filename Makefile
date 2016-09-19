@@ -14,6 +14,7 @@ S_OBJ = $(patsubst %.o, $(OBJ_DIR)/%.o, $(notdir $(S_OBJECTS)))
 CC = gcc
 LD = ld
 ASM = nasm
+EMU= qemu-system-i386
 RM = rm -fr
 MV = mv
 CP = cp -fr
@@ -92,7 +93,7 @@ umount_image:
 
 .PHONY:qemu
 qemu:
-	qemu -fda $(BIN_DIR)/floppy.img -boot a
+	$(EMU) -fda $(BIN_DIR)/floppy.img -boot a
 
 .PHONY:bochs
 bochs:
@@ -100,7 +101,7 @@ bochs:
 
 .PHONY:debug
 debug:
-	qemu -fda $(BIN_DIR)/floppy.img -boot a -gdb tcp::1234 -S &
+	$(EMU) -fda $(BIN_DIR)/floppy.img -boot a -gdb tcp::1234 -S &
 	sleep 1
 	gdb -q -x $(TOOLS_DIR)/gdbinit
 
