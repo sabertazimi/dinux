@@ -12,7 +12,10 @@ inline int strcmp(const char *str1, const char *str2) {
         ;
     }
 
-    return (int)(*str1 - *str2);
+    int ret = (int)(*str1 - *str2);
+    return ret > 0 ? 1
+        ：ret == 0 ? 0
+        : -1;
 }
 
 inline char *strcpy(char *dest, const char *src) {

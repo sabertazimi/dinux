@@ -9,6 +9,7 @@
 #include "spec.h"
 
 int string_spec(void) {
+    assert_equal("strcmp", strcmp("Hello", "Hello W"), )
     return TRUE;
 }
 
