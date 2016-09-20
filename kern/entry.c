@@ -27,8 +27,17 @@ int kern_entry(void) {
     console_clear();
 
 #ifdef KERN_DEBUG
-    mem_spec();
-    string_spec();
+    if (mem_spec()) {
+        console_write_color(">>>>\tmem_spec passed\n", RC_BLACK, RC_GREEN);
+    } else {
+        console_write_color(">>>>\tmem_spec failed\n", RC_BLACK, RC_RED);
+    }
+
+    if (string_spec()) {
+        console_write_color(">>>>\tstring_spec passed\n", RC_BLACK, RC_GREEN);
+    } else {
+        console_write_color(">>>>\tstring_spec failed\n", RC_BLACK, RC_RED);
+    }
 #endif
 
     console_write_color("Hello, Dinux! @time: ", RC_BLACK, RC_GREEN);

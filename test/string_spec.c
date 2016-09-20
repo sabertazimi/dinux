@@ -6,10 +6,9 @@
  */
 
 #include <stdlib.h>
-#include <console.h>
+#include "spec.h"
 
 int string_spec(void) {
-    console_write_color(">>>>\tstring_spec passed!\n", RC_BLACK, RC_GREEN);
-    return 0;
+    return TRUE;
 }
 
