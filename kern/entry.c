@@ -5,14 +5,12 @@
  * Distributed under terms of the MIT license.
  */
 
-#include <defs.h>
-#include <console.h>
+#include <stdlib.h>
 
 #define KERN_DEBUG
 
 #ifdef KERN_DEBUG
 
-#include <debug.h>
 #include <spec.h>
 
 #endif
@@ -39,6 +37,12 @@ int kern_entry(void) {
     printk("Email: sabertazimi@gmail.com\n");
     printk("Hello, Dinux!\n");
     printk("@time 2016.9.21\n");
+
+#ifdef KERN_DEBUG
+    debug_init();
+    print_regs();
+    panic("panic test");
+#endif
 
     return 0;
 }

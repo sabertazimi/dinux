@@ -5,6 +5,7 @@
  * Distributed under terms of the MIT license.
  */
 
+#include <string.h>
 #include <debug.h>
 
 #define is_digit(c) ((c) >= '0' && (c) <= '9')

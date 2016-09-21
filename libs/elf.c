@@ -9,7 +9,7 @@
 #include <string.h>
 #include <elf.h>
 
-elf_t elf_from_multiboot(multiboot *mb) {
+elf_t elf_from_multiboot(multiboot_t *mb) {
     int i;
     elf_t elf;
     elf_section_header_t *sh = (elf_section_header_t *)mb->addr;

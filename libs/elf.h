@@ -24,7 +24,7 @@ typedef struct elf_section_header_t {
     uint32_t info;
     uint32_t addralign;
     uint32_t entsize;
-} __packed elf_section_header_t;
+} __attribute__((packed)) elf_section_header_t;
 
 typedef struct elf_symbol_t {
     uint32_t name;      // not point to string address, but offset from strtab base address
@@ -32,8 +32,8 @@ typedef struct elf_symbol_t {
     uint32_t size;
     uint8_t  info;
     uint8_t  other;
-    uint8_t  shndx;
-} __packed elf_symbol_t;
+    uint16_t  shndx;
+} __attribute__((packed)) elf_symbol_t;
 
 typedef struct elf_t {
     elf_symbol_t *symtab;
@@ -42,7 +42,7 @@ typedef struct elf_t {
     uint32_t     strtabsz;
 } elf_t;
 
-elf_t elf_from_multiboot(multiboot *mb);
+elf_t elf_from_multiboot(multiboot_t *mb);
 const char *elf_lookup_symbol(uint32_t addr, elf_t *elf);
 
 #endif /* !LIBS_ELF_H*/

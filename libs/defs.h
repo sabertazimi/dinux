@@ -20,9 +20,9 @@
     #define FALSE 0
 #endif
 
-#define __packed   __attribute__((packed))
-#define __noinline __attribute__((noinline))
-#define __noreturn __attribute__((noreturn))
+// #define __packed   __attribute__((packed))
+// #define __noinline __attribute__((noinline))
+// #define __noreturn __attribute__((noreturn))
 
 typedef unsigned int   uint32_t;
 typedef          int   int32_t;

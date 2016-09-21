@@ -49,7 +49,7 @@ typedef struct multiboot_t {
     uint32_t vbe_interface_seg;
     uint32_t vbe_interface_off;
     uint32_t vbe_interface_len;
-} __packed multiboot_t;
+} __attribute__((packed)) multiboot_t;
 
 typedef struct mmap_entry_t {
     uint32_t size;
@@ -58,6 +58,8 @@ typedef struct mmap_entry_t {
     uint32_t length_low;
     uint32_t length_high;
     uint32_t type;
-} __packed mmap_entry_t;
+} __attribute__((packed)) mmap_entry_t;
+
+extern multiboot_t *glb_mboot_ptr;
 
 #endif /* !LIBS_MTIBOOT_H */
