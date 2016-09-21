@@ -40,6 +40,8 @@ TOOLS_DIR = ./tools
 # include macro
 KINCLUDE += libs/ 			\
 			kern/drivers 	\
+			kern/debug 		\
+			test 			\
 
 all: $(S_OBJECTS) $(C_OBJECTS) $(T_OBJECTS) link update_image
 
@@ -110,6 +112,13 @@ debug:
 	$(EMU) -fda $(BIN_DIR)/floppy.img -boot a -gdb tcp::1234 -S &
 	sleep 1
 	gdb -q -x $(TOOLS_DIR)/gdbinit
+
+.PHONY:count
+count:
+	@echo 'Assembly Source Code = '
+	@find . -name "*.S" | xargs cat | wc -l
+	@echo 'C Source Code = '
+	@find . -name "*.[ch]" | xargs cat | wc -l
 
 .PHONY:show
 show:

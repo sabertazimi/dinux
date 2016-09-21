@@ -14,11 +14,9 @@
 #define assert_equal(function, result, expect, info)            \
     do {                                                        \
         if (result != expect) {                                 \
-            console_write_color(function, RC_BLACK, RC_RED);    \
-            console_write_color(": ", RC_BLACK, RC_RED);        \
-            console_write_color("expect ", RC_BLACK, RC_RED);   \
-            console_write_color(info, RC_BLACK, RC_RED);        \
-            console_write_color("\n", RC_BLACK, RC_RED);        \
+            printk_color(RC_BLACK, RC_RED,                      \
+                    "In function <%s> : expect <%s>\n",         \
+                    function, info);                            \
             return FALSE;                                       \
         }                                                       \
     } while (0)
@@ -26,11 +24,9 @@
 #define assert_nequal(function, result, expect, info)           \
     do {                                                        \
         if (result == expect) {                                 \
-            console_write_color(function, RC_BLACK, RC_RED);    \
-            console_write_color(": ", RC_BLACK, RC_RED);        \
-            console_write_color("expect ", RC_BLACK, RC_RED);   \
-            console_write_color(info, RC_BLACK, RC_RED);        \
-            console_write_color("\n", RC_BLACK, RC_RED);        \
+            printk_color(RC_BLACK, RC_RED,                      \
+                    "In function <%s> : expect <%s>\n",         \
+                    function, info);                            \
             return FALSE;                                       \
         }                                                       \
     } while (0)

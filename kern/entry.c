@@ -11,16 +11,11 @@
 #define KERN_DEBUG
 
 #ifdef KERN_DEBUG
-    #include "../test/spec.h"
-#endif
 
-/* #ifdef KERN_DEBUG */
-/*     #define VGA_INPUT(handle, character, color)      \ */
-/*         do {                                         \ */
-/*             *handle++ = character;                   \ */
-/*             *handle++ = color;                       \ */
-/*         } while (0) */
-/* #endif */
+#include <debug.h>
+#include <spec.h>
+
+#endif
 
 int kern_entry(void) {
 
@@ -28,25 +23,22 @@ int kern_entry(void) {
 
 #ifdef KERN_DEBUG
     if (mem_spec()) {
-        console_write_color(">>>>\tmem_spec passed\n", RC_BLACK, RC_GREEN);
+        printk_color(RC_BLACK, RC_GREEN, ">>>>\tmem_spec passed\n") ;
     } else {
-        console_write_color(">>>>\tmem_spec failed\n", RC_BLACK, RC_RED);
+        printk_color(RC_BLACK, RC_RED, ">>>>\tmem_spec failed\n") ;
     }
 
     if (string_spec()) {
-        console_write_color(">>>>\tstring_spec passed\n", RC_BLACK, RC_GREEN);
+        printk_color(RC_BLACK, RC_GREEN, ">>>>\tstring_spec passed\n") ;
     } else {
-        console_write_color(">>>>\tstring_spec failed\n", RC_BLACK, RC_RED);
+        printk_color(RC_BLACK, RC_RED, ">>>>\tstring_spec failed\n") ;
     }
 #endif
 
-    console_write_color("Hello, Dinux! @time: ", RC_BLACK, RC_GREEN);
-    console_write_dec(2016, RC_BLACK, RC_GREEN);
-    console_write_color(".", RC_BLACK, RC_GREEN);
-    console_write_hex(9, RC_BLACK, RC_GREEN);
-    console_write_color(".", RC_BLACK, RC_GREEN);
-    console_write_dec(17, RC_BLACK, RC_GREEN);
-    console_write_color("\n", RC_BLACK, RC_GREEN);
+    printk("\nAuthor: sabertazimi\n");
+    printk("Email: sabertazimi@gmail.com\n");
+    printk("Hello, Dinux!\n");
+    printk("@time 2016.9.21\n");
 
     return 0;
 }

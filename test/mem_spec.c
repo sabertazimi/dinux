@@ -6,7 +6,7 @@
  */
 
 #include <stdlib.h>
-#include "spec.h"
+#include <spec.h>
 
 int mem_spec(void) {
     uint8_t test[30];

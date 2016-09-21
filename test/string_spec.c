@@ -6,7 +6,7 @@
  */
 
 #include <stdlib.h>
-#include "spec.h"
+#include <spec.h>
 
 int string_spec(void) {
     char test[30];

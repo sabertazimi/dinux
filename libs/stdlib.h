@@ -10,5 +10,6 @@
 
 #include <mem.h>
 #include <string.h>
+#include <debug.h>
 
 #endif /* !LIBS_STDLIB_H */
