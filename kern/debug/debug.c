@@ -29,6 +29,10 @@ static void print_stack_trace(void) {
 
 void debug_init(void) {
     kernel_elf = elf_from_multiboot(glb_mboot_ptr);
+
+#ifdef KERN_DEBUG
+    printk_color(RC_BLACK, RC_GREEN, "debug_init      >>>>>>>>>> [OK]\n");
+#endif
 }
 
 void panic(const char *msg) {

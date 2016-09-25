@@ -5,14 +5,11 @@
  * Distributed under terms of the MIT license.
  */
 
+#include <gdt.h>
 #include <stdlib.h>
 
-#define KERN_DEBUG
-
 #ifdef KERN_DEBUG
-
 #include <spec.h>
-
 #endif
 
 int kern_entry(void) {
@@ -21,28 +18,30 @@ int kern_entry(void) {
 
 #ifdef KERN_DEBUG
     if (mem_spec()) {
-        printk_color(RC_BLACK, RC_GREEN, ">>>>\tmem_spec passed\n") ;
+        printk_color(RC_BLACK, RC_GREEN, "mem_spec        >>>>>>>>>> [OK]\n") ;
     } else {
-        printk_color(RC_BLACK, RC_RED, ">>>>\tmem_spec failed\n") ;
+        printk_color(RC_BLACK, RC_RED, "mem_spec        >>>>>>>>>> [ER]\n") ;
     }
 
     if (string_spec()) {
-        printk_color(RC_BLACK, RC_GREEN, ">>>>\tstring_spec passed\n") ;
+        printk_color(RC_BLACK, RC_GREEN, "string_spec     >>>>>>>>>> [OK]\n") ;
     } else {
-        printk_color(RC_BLACK, RC_RED, ">>>>\tstring_spec failed\n") ;
+        printk_color(RC_BLACK, RC_RED, "string_spec     >>>>>>>>>> [ER]\n") ;
     }
 #endif
+
+#ifdef KERN_DEBUG
+    debug_init();
+    print_regs();
+    // panic("panic test");
+#endif
+
+    gdt_init();
 
     printk("\nAuthor: sabertazimi\n");
     printk("Email: sabertazimi@gmail.com\n");
     printk("Hello, Dinux!\n");
     printk("@time 2016.9.21\n");
-
-#ifdef KERN_DEBUG
-    debug_init();
-    print_regs();
-    panic("panic test");
-#endif
 
     return 0;
 }

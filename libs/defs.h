@@ -8,6 +8,8 @@
 #ifndef LIBS_TYPE_H
 #define LIBS_TYPE_H
 
+#define KERN_DEBUG
+
 #ifndef NULL
     #define NULL ((void *)0)
 #endif

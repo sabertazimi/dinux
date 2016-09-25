@@ -41,6 +41,7 @@ TOOLS_DIR = ./tools
 KINCLUDE += libs/ 			\
 			kern/drivers 	\
 			kern/debug 		\
+			kern/gdt 		\
 			test 			\
 
 all: $(S_OBJECTS) $(C_OBJECTS) $(T_OBJECTS) link update_image
