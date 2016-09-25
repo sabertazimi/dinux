@@ -42,6 +42,7 @@ KINCLUDE += libs/ 			\
 			kern/drivers 	\
 			kern/debug 		\
 			kern/gdt 		\
+			kern/idt 		\
 			test 			\
 
 all: $(S_OBJECTS) $(C_OBJECTS) $(T_OBJECTS) link update_image
