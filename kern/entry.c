@@ -6,6 +6,7 @@
  */
 
 #include <gdt.h>
+#include <idt.h>
 #include <stdlib.h>
 
 #ifdef KERN_DEBUG
@@ -32,16 +33,22 @@ int kern_entry(void) {
 
 #ifdef KERN_DEBUG
     debug_init();
-    print_regs();
     // panic("panic test");
 #endif
 
     gdt_init();
+    idt_init();
 
     printk("\nAuthor: sabertazimi\n");
     printk("Email: sabertazimi@gmail.com\n");
     printk("Hello, Dinux!\n");
     printk("@time 2016.9.21\n");
+
+#ifdef KERN_DEBUG
+    print_regs();
+    printk("\n");
+    asm volatile("int $0x10");
+#endif
 
     return 0;
 }

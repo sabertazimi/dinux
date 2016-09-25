@@ -10,9 +10,6 @@
 
 #include <defs.h>
 
-// update gdt(assembly function)
-extern void gdt_flush(uint32_t);
-
 typedef struct gdt_entry_t {
     uint16_t limit_low;
     uint16_t base_low;
@@ -28,5 +25,8 @@ typedef struct gdt_ptr_t {
 } __attribute__((packed)) gdt_ptr_t;
 
 void gdt_init(void);
+
+// update gdt(assembly function)
+extern void gdt_flush(uint32_t);
 
 #endif /* !KERN_GDT_GDT_H */

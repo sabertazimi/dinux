@@ -25,30 +25,20 @@ typedef struct idt_ptr_t {
 
 typedef struct pt_regs_t {
     // last pushed
-    uint32_t ds;
-    uint32_t edi;
-    uint32_t esi;
-    uint32_t ebp;
-    uint32_t esp;
-    uint32_t ebx;
-    uint32_t edx;
-    uint32_t ecx;
-    uint32_t eax;
-    uint32_t int_no;
-    uint32_t err_code;
-    uint32_t eip;
-    uint32_t cs;
-    uint32_t eflags;
-    uint32_t useresp;
-    uint32_t ss;
+    uint32_t gs, fs, es, ds;
+    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
     // first pushed
+    uint32_t int_no, err_code;
+    uint32_t eip, cs, eflags, useresp, ss;
 } pt_regs;
 
 typedef void (*interrupt_handler_t)(pt_regs *);
 
-void init_idt(void);
+void idt_init(void);
 void register_interrupt_handler(uint8_t n, interrupt_handler_t h);
 void isr_handler(pt_regs *regs);
+
+extern void idt_flush(uint32_t);
 
 void isr0(void);    // #DE divided by zero
 void isr1(void);    // #DB debug exception

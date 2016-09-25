@@ -11,6 +11,7 @@
 #define GDT_LENGTH 5
 
 extern uint32_t stack;      // kernel stack
+
 gdt_entry_t gdt_entries[GDT_LENGTH];
 gdt_ptr_t gdt_ptr;
 
