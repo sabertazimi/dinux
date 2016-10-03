@@ -9,8 +9,8 @@ idt_flush:
 [global isr%1]
 isr%1:
     cli
-    push $0      ; invalid err code, simplify handler logic
-    push %1     ; int_no
+    push byte 0        ; invalid err code, simplify handler logic
+    push byte %1        ; int_no
     jmp isr_common_stub
 %endmacro
 
@@ -18,7 +18,7 @@ isr%1:
 [global isr%1]
 isr%1:
     cli
-    push %1     ; int_no
+    push byte %1        ; int_no
     jmp isr_common_stub
 %endmacro
 
@@ -31,11 +31,8 @@ ISR_NOERRCODE   4
 ISR_NOERRCODE   5
 ISR_NOERRCODE   6
 ISR_NOERRCODE   7
-; FIX ME
 ISR_ERRCODE     8
 ISR_NOERRCODE   9
-; FIX ME
-; push 0 push %1
 ISR_ERRCODE     10
 ISR_ERRCODE     11
 ISR_ERRCODE     12
