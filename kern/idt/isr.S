@@ -73,11 +73,11 @@ isr_common_stub:
     mov es, ax
     mov fs, ax
     mov gs, ax
-    mov ss, ax
 
     mov eax, esp
     push eax        ; push (pt_regs *)
-    call isr_handler
+    mov eax, isr_handler
+    call eax
     pop eax         ; clear pushed argument(pt_regs *)
 
     pop gs

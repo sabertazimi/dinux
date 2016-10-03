@@ -47,7 +47,8 @@ int kern_entry(void) {
 #ifdef KERN_DEBUG
     print_regs();
     printk("\n");
-    asm volatile("int $0xe");
+    asm volatile("int $0x3");
+    asm volatile("int $0x10");
 #endif
 
     return 0;

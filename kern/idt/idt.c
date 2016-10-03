@@ -81,3 +81,8 @@ void idt_init(void) {
     printk_color(RC_BLACK, RC_GREEN, "idt_init        >>>>>>>>>> [OK]\n");
 #endif
 }
+
+
+void register_interrupt_handler(uint8_t n, interrupt_handler_t h) {
+    interrupt_handlers[n] = h;
+}
