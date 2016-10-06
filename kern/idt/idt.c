@@ -6,6 +6,7 @@
  */
 
 #include <idt.h>
+#include <x86.h>
 #include <stdlib.h>
 
 idt_entry_t idt_entries[256];
@@ -42,8 +43,6 @@ void irq_handler(pt_regs *regs) {
 
     if (interrupt_handlers[regs->int_no]) {
         interrupt_handlers[regs->int_no](regs);
-    } else {
-        printk_color(RC_BLACK, RC_RED, "Uhandled request: %d\n", regs->int_no);
     }
 }
 
@@ -68,8 +67,8 @@ void idt_init(void) {
     outb(0xa1, 0x01);
 
     // set interrupt
-    outb(0x21, 0x0)
-    outb(0xa1, 0x0)
+    outb(0x21, 0x0);
+    outb(0xa1, 0x0);
 
     /* Intel 8259A Chips */
 

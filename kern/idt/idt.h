@@ -25,7 +25,7 @@ typedef struct idt_ptr_t {
 
 typedef struct pt_regs_t {
     // last pushed
-    uint32_t gs, fs, es, ds;
+    uint32_t userss, gs, fs, es, ds;
     uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
     // first pushed
     uint32_t int_no, err_code;
@@ -96,21 +96,21 @@ void isr255(void);
 #define IRQ15 47    ///< IDE1
 
 void irq_handler(pt_regs *regs);
-void irq0();    ///< timer
-void irq1();    ///< keyboard
-void irq2();    ///< link to irq9 MPU-401 md
-void irq3();    ///< serial port device
-void irq4();    ///< serial port device
-void irq5();    ///< sound card
-void irq6();    ///< floppy drive
-void irq7();    ///< printer
-void irq8();    ///< real-time clock
-void irq9();    ///< link to irq2
-void irq10();   ///< network card
-void irq11();   ///< AGP graphic card
-void irq12();   ///< PS/2 mouse
-void irq13();   ///< co-processor
-void irq14();   ///< IDE0
-void irq15();   ///< IDE1
+void irq0(void);    ///< timer
+void irq1(void);    ///< keyboard
+void irq2(void);    ///< link to irq9 MPU-401 md
+void irq3(void);    ///< serial port device
+void irq4(void);    ///< serial port device
+void irq5(void);    ///< sound card
+void irq6(void);    ///< floppy drive
+void irq7(void);    ///< printer
+void irq8(void);    ///< real-time clock
+void irq9(void);    ///< link to irq2
+void irq10(void);   ///< network card
+void irq11(void);   ///< AGP graphic card
+void irq12(void);   ///< PS/2 mouse
+void irq13(void);   ///< co-processor
+void irq14(void);   ///< IDE0
+void irq15(void);   ///< IDE1
 
 #endif /* !KERN_IDT_IDT_H */

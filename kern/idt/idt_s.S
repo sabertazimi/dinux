@@ -93,12 +93,14 @@ isr_common_stub:
     push es
     push fs
     push gs
+    push ss
 
     mov ax, 0x10    ; load kernel data segment descriptor
     mov ds, ax
     mov es, ax
     mov fs, ax
     mov gs, ax
+    mov ss, ax
 
     mov eax, esp
     push eax        ; push (pt_regs *)
@@ -106,6 +108,7 @@ isr_common_stub:
     call eax
     pop eax         ; clear pushed argument(pt_regs *)
 
+    pop ss
     pop gs
     pop fs
     pop es
@@ -121,8 +124,11 @@ isr_common_stub:
 irq_common_stub:
     pusha
 
-    mov ax, ds
-    push eax
+    push ds
+    push es
+    push fs
+    push gs
+    push ss
 
     mov ax, 0x10
     mov ds, ax
@@ -131,17 +137,17 @@ irq_common_stub:
     mov gs, ax
     mov ss, ax
 
-    push esp
+    mov eax, esp
+    push eax
     mov eax, irq_handler
     call eax
     pop eax
 
-    pop ebx
-    mov ds, bx
-    mov es, bx
-    mov fs, bx
-    mov gs, bx
-    mov ss, bx
+    pop ss
+    pop gs
+    pop fs
+    pop es
+    pop ds
 
     popa
     add esp, 8
