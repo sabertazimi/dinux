@@ -60,7 +60,15 @@ void console_putc_color(char c, real_color_t back, real_color_t fore) {
 
     if (c == 0x8 && cursor_x) {
         // backspace
-        cursor_x--;
+        video_memory[cursor_y * VGA_BUFFER_WIDTH + cursor_x] = ' ';
+
+        if (cursor_x == 0) {
+            // back line
+            cursor_x = VGA_BUFFER_WIDTH - 1;
+            cursor_y--;
+        } else {
+            cursor_x--;
+        }
     } else if (c == 0x9) {
         // tab
         cursor_x = (cursor_x + 8) & ~(8 - 1);
