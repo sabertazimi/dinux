@@ -34,12 +34,12 @@ typedef struct pt_regs_t {
 
 typedef void (*interrupt_handler_t)(pt_regs *);
 
-void idt_init(void);
-void register_interrupt_handler(uint8_t n, interrupt_handler_t h);
-void isr_handler(pt_regs *regs);
-
 extern void idt_flush(uint32_t);
 
+void idt_init(void);
+void register_interrupt_handler(uint8_t n, interrupt_handler_t h);
+
+void isr_handler(pt_regs *regs);
 void isr0(void);    // #DE divided by zero
 void isr1(void);    // #DB debug exception
 void isr2(void);    // #NMI
@@ -77,5 +77,40 @@ void isr31(void);
 
 // 32 ~ 255 : user-defined exception
 void isr255(void);
+
+#define IRQ0  32    ///< timer
+#define IRQ1  33    ///< keyboard
+#define IRQ2  34    ///< link to IRQ9 MPU-401 MD
+#define IRQ3  35    ///< serial port device
+#define IRQ4  36    ///< serial port device
+#define IRQ5  37    ///< sound card
+#define IRQ6  38    ///< floppy drive
+#define IRQ7  39    ///< printer
+#define IRQ8  40    ///< real-time clock
+#define IRQ9  41    ///< link to IRQ2
+#define IRQ10 42    ///< network card
+#define IRQ11 43    ///< AGP graphic card
+#define IRQ12 44    ///< PS/2 mouse
+#define IRQ13 45    ///< co-processor
+#define IRQ14 46    ///< IDE0
+#define IRQ15 47    ///< IDE1
+
+void irq_handler(pt_regs *regs);
+void irq0();    ///< timer
+void irq1();    ///< keyboard
+void irq2();    ///< link to irq9 MPU-401 md
+void irq3();    ///< serial port device
+void irq4();    ///< serial port device
+void irq5();    ///< sound card
+void irq6();    ///< floppy drive
+void irq7();    ///< printer
+void irq8();    ///< real-time clock
+void irq9();    ///< link to irq2
+void irq10();   ///< network card
+void irq11();   ///< AGP graphic card
+void irq12();   ///< PS/2 mouse
+void irq13();   ///< co-processor
+void irq14();   ///< IDE0
+void irq15();   ///< IDE1
 
 #endif /* !KERN_IDT_IDT_H */

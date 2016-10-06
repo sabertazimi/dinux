@@ -22,6 +22,15 @@ isr%1:
     jmp isr_common_stub
 %endmacro
 
+%macro IRQ 2
+[global irq%1]
+irq%1:
+    cli
+    push byte 0
+    push byte %2
+    jmp irq_common_stub
+%endmacro
+
 ; interrupt service routine
 ISR_NOERRCODE   0
 ISR_NOERRCODE   1
@@ -59,6 +68,23 @@ ISR_NOERRCODE   31
 
 ISR_NOERRCODE   255
 
+IRQ     0,  32
+IRQ     1,  33
+IRQ     2,  34
+IRQ     3,  35
+IRQ     4,  36
+IRQ     5,  37
+IRQ     6,  38
+IRQ     7,  39
+IRQ     8,  40
+IRQ     9,  41
+IRQ     10, 42
+IRQ     11, 43
+IRQ     12, 44
+IRQ     13, 45
+IRQ     14, 46
+IRQ     15, 47
+
 [global isr_common_stub]
 [extern isr_handler]
 isr_common_stub:
@@ -86,6 +112,38 @@ isr_common_stub:
     pop ds
     popa            ; pop edi, esi, ebp, esp, ebx, edx, ecx, eax
 
+    add esp, 8
+    iret
+.end:
+
+[global irq_common_stub]
+[extern irq_handler]
+irq_common_stub:
+    pusha
+
+    mov ax, ds
+    push eax
+
+    mov ax, 0x10
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov ss, ax
+
+    push esp
+    mov eax, irq_handler
+    call eax
+    pop eax
+
+    pop ebx
+    mov ds, bx
+    mov es, bx
+    mov fs, bx
+    mov gs, bx
+    mov ss, bx
+
+    popa
     add esp, 8
     iret
 .end:
