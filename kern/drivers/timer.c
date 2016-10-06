@@ -37,5 +37,9 @@ void timer_init(uint32_t frequency) {
 
     outb(0x40, low);
     outb(0x40, high);
+
+#ifdef KERN_DEBUG
+    printk_color(RC_BLACK, RC_GREEN, "timer_init      >>>>>>>>>> [OK]\n");
+#endif
 }
 

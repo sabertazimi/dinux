@@ -218,4 +218,8 @@ static void keyboard_handler(pt_regs *regs) {
 /* Installs the keyboard handler into IRQ1 */
 void keyboard_init(void) {
     register_interrupt_handler(IRQ1, keyboard_handler);
+
+#ifdef KERN_DEBUG
+    printk_color(RC_BLACK, RC_GREEN, "keyboard_init   >>>>>>>>>> [OK]\n");
+#endif
 }

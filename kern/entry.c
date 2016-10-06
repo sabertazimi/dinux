@@ -39,6 +39,8 @@ int kern_entry(void) {
 
     gdt_init();
     idt_init();
+    timer_init(1000);
+    keyboard_init();
 
     printk("\nAuthor: sabertazimi\n");
     printk("Email: sabertazimi@gmail.com\n");
@@ -49,9 +51,6 @@ int kern_entry(void) {
     print_regs();
     printk("\n");
 #endif
-
-    timer_init(1000);
-    keyboard_init();
 
     asm volatile("sti");
 
