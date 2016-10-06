@@ -15,9 +15,9 @@ static void timer_handler(pt_regs *regs) {
 
     tick++;
 
-    if (tick % 1000 == 0) {
-        printk_color(RC_BLACK, RC_GREEN, "Tick: %d\n", tick/1000);
-    }
+    /* if (tick % 1000 == 0) { */
+    /*     printk_color(RC_BLACK, RC_GREEN, "Tick: %d\n", tick/1000); */
+    /* } */
 }
 
 void timer_init(uint32_t frequency) {
