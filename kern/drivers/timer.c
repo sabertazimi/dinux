@@ -10,7 +10,7 @@
 #include <idt.h>
 #include <timer.h>
 
-void timer_handler(pt_regs *regs) {
+static void timer_handler(pt_regs *regs) {
     static uint32_t tick = 0;
 
     tick++;
@@ -38,5 +38,4 @@ void timer_init(uint32_t frequency) {
     outb(0x40, low);
     outb(0x40, high);
 }
-
 

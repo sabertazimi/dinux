@@ -7,7 +7,7 @@
 
 #include <gdt.h>
 #include <idt.h>
-#include <timer.h>
+#include <drivers.h>
 #include <stdlib.h>
 
 #ifdef KERN_DEBUG
@@ -51,6 +51,7 @@ int kern_entry(void) {
 #endif
 
     timer_init(1000);
+    keyboard_init();
 
     asm volatile("sti");
 
