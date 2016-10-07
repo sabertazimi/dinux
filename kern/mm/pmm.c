@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <pmm.h>
 
+static uint32_t pmm_stack[PAGE_MAX_SIZE+1];
+
 void show_memory_map(void) {
     uint32_t mmap_addr = glb_mboot_ptr->mmap_addr;
     uint32_t mmap_length = glb_mboot_ptr->mmap_length;
@@ -23,4 +25,17 @@ void show_memory_map(void) {
             (uint32_t)mmap->type);
     }
 }
+
+void pmm_init(void) {
+
+}
+
+uint32_t pmm_alloc_page(void) {
+    return 0;
+}
+
+void pmm_free_page(uint32_t addr) {
+
+}
+
 

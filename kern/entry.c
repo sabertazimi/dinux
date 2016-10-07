@@ -8,6 +8,7 @@
 #include <gdt.h>
 #include <idt.h>
 #include <drivers.h>
+#include <pmm.h>
 #include <stdlib.h>
 
 #ifdef KERN_DEBUG
@@ -42,14 +43,20 @@ int kern_entry(void) {
     timer_init(1000);
     keyboard_init();
 
+#ifdef KERN_DEBUG
     printk("\nAuthor: sabertazimi\n");
     printk("Email: sabertazimi@gmail.com\n");
     printk("Hello, Dinux!\n");
-    printk("@time 2016.9.21\n");
+    printk("@time 2016.9.21\n\n");
 
-#ifdef KERN_DEBUG
     print_regs();
     printk("\n");
+
+    printk("kernel in memory start: 0x%08X\n", kern_start);
+    printk("kernel in memory end  : 0x%08X\n", kern_end);
+    printk("kernel in memory used : %d KB\n\n", (kern_end - kern_start + 1023)/1024);
+
+    show_memory_map();
 #endif
 
     asm volatile("sti");
