@@ -34,6 +34,8 @@ typedef struct multiboot_t {
 
     /*
      * memory mapping info provided by BIOS
+     * addr: point to start address of buffer for link list for mmap_entry_t
+     * length: buffer total size
      */
     uint32_t mmap_length;
     uint32_t mmap_addr;
@@ -51,6 +53,7 @@ typedef struct multiboot_t {
     uint32_t vbe_interface_len;
 } __attribute__((packed)) multiboot_t;
 
+///< type: 1 represents RAM, other represents I/O device mapping to memory
 typedef struct mmap_entry_t {
     uint32_t size;
     uint32_t base_addr_low;

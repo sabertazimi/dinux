@@ -8,6 +8,7 @@ SECTIONS {
      * vgamem = 0xb8000;    # 绑定vga缓冲区的地址到符号vgamem
      */
     . = 0x100000;
+    PROVIDE(kern_start = .);
     .text : {            /* 内核二进制镜像中的 .text 段(Section), 从 0x100000 开始 */
         __begin__ = .;   
         __code__ = .;
@@ -36,5 +37,6 @@ SECTIONS {
     /DISCARD/ : {
         *(.comment) *(.eh_frame)
     }
+    PROVIDE(kern_end = .);
     __end__ = .;
 }

@@ -43,6 +43,7 @@ KINCLUDE += libs/ 			\
 			kern/debug 		\
 			kern/gdt 		\
 			kern/idt 		\
+			kern/mm 		\
 			test 			\
 
 all: $(S_OBJECTS) $(C_OBJECTS) $(T_OBJECTS) link update_image
