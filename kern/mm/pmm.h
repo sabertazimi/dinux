@@ -28,7 +28,7 @@
 extern uint8_t kern_start[];
 extern uint8_t kern_end[];
 
-// number of alloced pages
+// number of free pages
 extern uint32_t phy_page_count;
 
 void show_memory_map(void);

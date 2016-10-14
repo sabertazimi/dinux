@@ -8,7 +8,7 @@
 #include <gdt.h>
 #include <idt.h>
 #include <drivers.h>
-#include <pmm.h>
+#include <mm.h>
 #include <stdlib.h>
 
 #ifdef KERN_DEBUG
@@ -40,6 +40,7 @@ int kern_entry(void) {
 
     gdt_init();
     idt_init();
+    pmm_init();
     timer_init(1000);
     keyboard_init();
 
@@ -57,6 +58,21 @@ int kern_entry(void) {
     printk("kernel in memory used : %d KB\n\n", (kern_end - kern_start + 1023)/1024);
 
     show_memory_map();
+#endif
+
+#ifdef KERN_DEBUG
+    uint32_t alloc_addr = NULL;
+
+    printk_color(RC_BLACK, RC_GREEN, "\nThe count of physical memory page is: %u\n\n", phy_page_count);
+    printk_color(RC_BLACK, RC_LIGHT_BROWN, "Test physical memory alloc: \n");
+    alloc_addr = pmm_alloc_page();
+    printk_color(RC_BLACK, RC_LIGHT_BROWN, "Alloc physical addr: 0x%08X\n", alloc_addr);
+    alloc_addr = pmm_alloc_page();
+    printk_color(RC_BLACK, RC_LIGHT_BROWN, "Alloc physical addr: 0x%08X\n", alloc_addr);
+    alloc_addr = pmm_alloc_page();
+    printk_color(RC_BLACK, RC_LIGHT_BROWN, "Alloc physical addr: 0x%08X\n", alloc_addr);
+    alloc_addr = pmm_alloc_page();
+    printk_color(RC_BLACK, RC_LIGHT_BROWN, "Alloc physical addr: 0x%08X\n", alloc_addr);
 #endif
 
     asm volatile("sti");
