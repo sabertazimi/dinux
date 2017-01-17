@@ -63,6 +63,7 @@ typedef struct mmap_entry_t {
     uint32_t type;
 } __attribute__((packed)) mmap_entry_t;
 
-extern multiboot_t *glb_mboot_ptr;
+extern multiboot_t *mboot_ptr_tmp;  ///< from boot.S: valid before setting up of pages
+extern multiboot_t *glb_mboot_ptr;  ///< from entry.c: valid after setting up of pages
 
 #endif /* !LIBS_MTIBOOT_H */

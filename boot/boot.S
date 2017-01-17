@@ -26,7 +26,7 @@ MBOOT_CHECKSUM      equ     -(MBOOT_HEADER_MAGIC+MBOOT_HEADER_FLAGS)
 ;
 
 [bits 32]   ; 所有代码以 32-bit 的方式编译
-section .text
+section .init.text
 
 ; 在代码段的起始位置设置符合 Multiboot 规范的标记
 
@@ -35,24 +35,23 @@ dd MBOOT_HEADER_FLAGS   ; GRUB 的一些加载时选项，其详细注释在定�
 dd MBOOT_CHECKSUM       ; 检测数值，其含义在定义处
 
 [global start]
-[global glb_mboot_ptr]  ; struct multiboot * 变量
+[global mboot_ptr_tmp]  ; struct multiboot * 临时变量
 [extern kern_entry]     ; C 函数: int kern_entry(void)
 
 start:
     cli
+    mov [mboot_ptr_tmp], ebx
     mov esp, STACK_TOP
     mov ebp, 0
     and esp, 0fffffff0h  ; 栈地址 16 bytes 对齐
-    mov [glb_mboot_ptr], ebx
     call kern_entry
 stop:
     hlt
     jmp stop
 
-section .bss
+section .init.data
 stack:
-    resb 32768            ; kernel stack
-glb_mboot_ptr:
-    resb 4
-
+    times 1024 db 0     ; kernal stck
 STACK_TOP equ $-stack-1
+
+mboot_ptr_tmp: dd 0

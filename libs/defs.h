@@ -26,6 +26,7 @@
 // #define __noinline __attribute__((noinline))
 // #define __noreturn __attribute__((noreturn))
 
+typedef unsigned int    size_t;
 typedef unsigned int   uint32_t;
 typedef          int   int32_t;
 typedef unsigned short uint16_t;

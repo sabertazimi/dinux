@@ -9,7 +9,7 @@
 #include <x86.h>
 
 // VGA display buffer: 25*80 array own 2 bytes element
-static uint16_t *video_memory = (uint16_t *)0xb8000;
+static uint16_t *video_memory = (uint16_t *)(0xb8000 + PAGE_OFFSET);
 
 // virtual cursor position
 static uint8_t cursor_x = 0;

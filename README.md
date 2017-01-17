@@ -3,10 +3,10 @@
 A toy operating system
 
 ```sh
-     _ _                  
+     _ _
   __| (_)_ __  _   ___  __
  / _` | | '_ \| | | \ \/ /
-| (_| | | | | | |_| |>  < 
+| (_| | | | | | |_| |>  <
  \__,_|_|_| |_|\__,_/_/\_\
 ```
 
@@ -17,7 +17,7 @@ A toy operating system
 ## Installation
 
 ```sh
-$ sudo apt install libc6-dev-i386 build-essential 
+$ sudo apt install libc6-dev-i386 build-essential
 $ sudo apt install nasm qemu bochs
 ```
 
