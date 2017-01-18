@@ -5,8 +5,9 @@
  * Distributed under terms of the MIT license.
  */
 
-#include <console.h>
 #include <x86.h>
+#include <console.h>
+#include <vmm.h>
 
 // VGA display buffer: 25*80 array own 2 bytes element
 static uint16_t *video_memory = (uint16_t *)(0xb8000 + PAGE_OFFSET);

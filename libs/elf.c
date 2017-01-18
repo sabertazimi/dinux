@@ -8,6 +8,7 @@
 #include <x86.h>
 #include <string.h>
 #include <elf.h>
+#include <vmm.h>
 
 elf_t elf_from_multiboot(multiboot_t *mb) {
     elf_t elf;
