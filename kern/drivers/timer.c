@@ -8,16 +8,18 @@
 #include <x86.h>
 #include <stdlib.h>
 #include <idt.h>
+#include <sched.h>
 #include <timer.h>
 
 static void timer_handler(pt_regs *regs) {
-    static uint32_t tick = 0;
 
-    tick++;
+    schedule();
 
-    /* if (tick % 1000 == 0) { */
-    /*     printk_color(RC_BLACK, RC_GREEN, "Tick: %d\n", tick/1000); */
-    /* } */
+    // static uint32_t tick = 0;
+    // tick++;
+    // if (tick % 1000 == 0) {
+    //     printk_color(RC_BLACK, RC_GREEN, "Tick: %d\n", tick/1000); */
+    // }
 }
 
 void timer_init(uint32_t frequency) {

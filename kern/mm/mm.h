@@ -9,6 +9,7 @@
 #define KERN_MM_MM_H
 
 #include <pmm.h>
+#include <heap.h>
 #include <vmm.h>
 
 #endif /* !KERN_MM_MM_H */

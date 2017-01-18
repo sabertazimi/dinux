@@ -10,6 +10,7 @@
 #include <idt.h>
 #include <drivers.h>
 #include <mm.h>
+#include <process.h>
 
 #ifdef KERN_DEBUG
 #include <spec.h>
@@ -17,10 +18,24 @@
 
 multiboot_t *glb_mboot_ptr;     ///< valid after setting up of pages
 char kern_stack[STACK_SIZE];    ///< valid after setting up of pages
+uint32_t kern_stack_top;
 
 __attribute__((section(".init.data"))) pgd_t *pgd_tmp  = (pgd_t *)0x1000;
 __attribute__((section(".init.data"))) pgd_t *pte_low  = (pgd_t *)0x2000;
 __attribute__((section(".init.data"))) pgd_t *pte_high = (pgd_t *)0x3000;
+
+int flag = 0;
+
+int thread(void *arg) {
+    while (1) {
+        if (flag == 1) {
+            printk_color(RC_BLACK, RC_GREEN, "B");
+            flag = 0;
+        }
+    }
+    
+    return 0;
+}
 
 void kern_entry(void);
 int kern_init(void);
@@ -50,7 +65,7 @@ __attribute__((section(".init.text"))) void kern_entry(void) {
     asm volatile ("mov %0, %%cr0" : : "r" (cr0));
 
     // 切换内核栈
-    uint32_t kern_stack_top = ((uint32_t)kern_stack + STACK_SIZE) & 0xFFFFFFF0;
+    kern_stack_top = ((uint32_t)kern_stack + STACK_SIZE) & 0xFFFFFFF0;
     asm volatile ("mov %0, %%esp\n\t"
                 "xor %%ebp, %%ebp" : : "r" (kern_stack_top));
 
@@ -104,6 +119,7 @@ int kern_init(void) {
     show_memory_map();
     pmm_init();
     vmm_init();
+    heap_init();
     #endif
 
     #ifdef KERN_DEBUG
@@ -119,9 +135,21 @@ int kern_init(void) {
     printk_color(RC_BLACK, RC_LIGHT_BROWN, "Alloc physical addr: 0x%08X\n", alloc_addr);
     alloc_addr = pmm_alloc_page();
     printk_color(RC_BLACK, RC_LIGHT_BROWN, "Alloc physical addr: 0x%08X\n", alloc_addr);
+    
+    heap_checkpoint();
     #endif
-
-    // asm volatile("sti");
+    
+    sched_init();
+    kernel_thread(thread, NULL);
+    
+    asm volatile("sti");
+    
+    while (1) {
+        if (flag == 0) {
+            printk_color(RC_BLACK, RC_RED, "A");
+            flag = 1;
+        }
+    }
 
     while (1) {
         asm volatile ("hlt");

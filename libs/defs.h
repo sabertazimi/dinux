@@ -35,4 +35,6 @@ typedef unsigned char  uint8_t;
 typedef          char  int8_t;
 typedef          int   bool;
 
+typedef int32_t pid_t;
+
 #endif /* !LIBS_TYPE_H */

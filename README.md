@@ -53,6 +53,7 @@ $ sudo vim /mnt/dinux/boot/grub/grub.conf
 ## Thanks
 
 *   hurlex
+*   jamesmolloy
 
 ## License
 
