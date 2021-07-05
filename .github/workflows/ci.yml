@@ -17,5 +17,9 @@ jobs:
       with:
         submodules: true
         fetch-depth: 1
+    - name: Installation
+      run: |
+          sudo apt install libc6-dev-i386 build-essential
+          sudo apt install nasm qemu bochs
     - name: Make
       run: make
