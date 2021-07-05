@@ -13,6 +13,7 @@ A toy operating system
 [![Author](https://img.shields.io/badge/author-sabertazimi-lightgrey.svg)](https://github.com/sabertazimi)
 [![Stable](https://img.shields.io/badge/stability-stable-brightgreen.svg)](https://github.com/sabertazimi/dinux)
 [![MIT](https://img.shields.io/badge/license-mit-brightgreen.svg)](https://github.com/sabertazimi/dinux/blob/master/LICENSE)
+[![Continuous Integration](https://github.com/sabertazimi/dinux/actions/workflows/ci.yml/badge.svg)](https://github.com/sabertazimi/dinux/actions/workflows/ci.yml)
 
 ## Installation
 
